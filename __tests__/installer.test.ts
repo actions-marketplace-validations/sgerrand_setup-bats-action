@@ -1,3 +1,4 @@
+import {mock, spyOn, beforeEach, afterEach, describe, it, expect, type Mock} from 'bun:test'
 import * as core from '@actions/core'
 import * as tc from '@actions/tool-cache'
 import {HttpClient} from '@actions/http-client'
@@ -12,34 +13,36 @@ import {
 } from '../src/installer'
 
 // os.platform is non-configurable, so we mock the whole module
-jest.mock('os')
+mock.module('os', () => ({
+  platform: mock(() => 'linux' as NodeJS.Platform)
+}))
 
-const osMock = os as jest.Mocked<typeof os>
+const osMock = os as typeof os & {platform: Mock}
 
-let infoSpy: jest.SpyInstance
-let addPathSpy: jest.SpyInstance
-let findSpy: jest.SpyInstance
-let downloadSpy: jest.SpyInstance
-let extractTarSpy: jest.SpyInstance
-let extractZipSpy: jest.SpyInstance
-let cacheDirSpy: jest.SpyInstance
-let getJsonSpy: jest.SpyInstance
+let infoSpy: Mock
+let addPathSpy: Mock
+let findSpy: Mock
+let downloadSpy: Mock
+let extractTarSpy: Mock
+let extractZipSpy: Mock
+let cacheDirSpy: Mock
+let getJsonSpy: Mock
 
 beforeEach(() => {
   // Default to linux for all tests unless overridden
   osMock.platform.mockReturnValue('linux')
-  infoSpy = jest.spyOn(core, 'info').mockImplementation(() => {})
-  addPathSpy = jest.spyOn(core, 'addPath').mockImplementation(() => {})
-  findSpy = jest.spyOn(tc, 'find')
-  downloadSpy = jest.spyOn(tc, 'downloadTool')
-  extractTarSpy = jest.spyOn(tc, 'extractTar')
-  extractZipSpy = jest.spyOn(tc, 'extractZip')
-  cacheDirSpy = jest.spyOn(tc, 'cacheDir')
-  getJsonSpy = jest.spyOn(HttpClient.prototype, 'getJson')
+  infoSpy = spyOn(core, 'info').mockImplementation(() => {})
+  addPathSpy = spyOn(core, 'addPath').mockImplementation(() => {})
+  findSpy = spyOn(tc, 'find')
+  downloadSpy = spyOn(tc, 'downloadTool')
+  extractTarSpy = spyOn(tc, 'extractTar')
+  extractZipSpy = spyOn(tc, 'extractZip')
+  cacheDirSpy = spyOn(tc, 'cacheDir')
+  getJsonSpy = spyOn(HttpClient.prototype, 'getJson')
 })
 
 afterEach(() => {
-  jest.restoreAllMocks()
+  mock.restore()
 })
 
 describe('normalizeVersion', () => {

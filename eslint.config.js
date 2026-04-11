@@ -2,7 +2,6 @@
 const js = require('@eslint/js')
 const tsPlugin = require('@typescript-eslint/eslint-plugin')
 const tsParser = require('@typescript-eslint/parser')
-const jestPlugin = require('eslint-plugin-jest')
 const nPlugin = require('eslint-plugin-n')
 const prettierConfig = require('eslint-config-prettier')
 const globals = require('globals')
@@ -10,7 +9,6 @@ const globals = require('globals')
 module.exports = [
   js.configs.recommended,
   ...tsPlugin.configs['flat/recommended'],
-  jestPlugin.configs['flat/recommended'],
   prettierConfig,
   {
     languageOptions: {
@@ -44,8 +42,6 @@ module.exports = [
     files: ['**/*{test,spec}.ts'],
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',
-      'jest/no-standalone-expect': 'off',
-      'jest/no-conditional-expect': 'off',
       'no-console': 'off'
     }
   }

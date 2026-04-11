@@ -1,20 +1,23 @@
+import {mock, spyOn, beforeEach, afterEach, describe, it, expect, type Mock} from 'bun:test'
 import * as core from '@actions/core'
 import * as installer from '../src/installer'
 import {run} from '../src/main'
 
 // Mock the installer module so main.ts doesn't trigger real downloads
-jest.mock('../src/installer')
+mock.module('../src/installer', () => ({
+  installBats: mock()
+}))
 
-const installerMock = installer as jest.Mocked<typeof installer>
+const installBatsMock = installer.installBats as unknown as Mock
 
-let getInputSpy: jest.SpyInstance
-let setOutputSpy: jest.SpyInstance
-let setFailedSpy: jest.SpyInstance
+let getInputSpy: Mock
+let setOutputSpy: Mock
+let setFailedSpy: Mock
 
 beforeEach(() => {
-  getInputSpy = jest.spyOn(core, 'getInput')
-  setOutputSpy = jest.spyOn(core, 'setOutput').mockImplementation(() => {})
-  setFailedSpy = jest.spyOn(core, 'setFailed').mockImplementation(() => {})
+  getInputSpy = spyOn(core, 'getInput')
+  setOutputSpy = spyOn(core, 'setOutput').mockImplementation(() => {})
+  setFailedSpy = spyOn(core, 'setFailed').mockImplementation(() => {})
 
   getInputSpy.mockImplementation((name: string) => {
     if (name === 'version') return '1.13.0'
@@ -22,17 +25,17 @@ beforeEach(() => {
     return ''
   })
 
-  installerMock.installBats.mockResolvedValue('1.13.0')
+  installBatsMock.mockResolvedValue('1.13.0')
 })
 
 afterEach(() => {
-  jest.restoreAllMocks()
+  mock.restore()
 })
 
 describe('run', () => {
   it('calls installBats with version and token inputs', async () => {
     await run()
-    expect(installerMock.installBats).toHaveBeenCalledWith('1.13.0', 'ghp_test')
+    expect(installer.installBats).toHaveBeenCalledWith('1.13.0', 'ghp_test')
   })
 
   it('sets the version output on success', async () => {
@@ -41,16 +44,14 @@ describe('run', () => {
   })
 
   it('calls setFailed when installBats throws an Error', async () => {
-    installerMock.installBats.mockRejectedValueOnce(
-      new Error('download failed')
-    )
+    installBatsMock.mockRejectedValueOnce(new Error('download failed'))
     await run()
     expect(setFailedSpy).toHaveBeenCalledWith('download failed')
     expect(setOutputSpy).not.toHaveBeenCalled()
   })
 
   it('does not set output when installBats fails', async () => {
-    installerMock.installBats.mockRejectedValueOnce(new Error('network error'))
+    installBatsMock.mockRejectedValueOnce(new Error('network error'))
     await run()
     expect(setOutputSpy).not.toHaveBeenCalled()
   })
