@@ -68,8 +68,10 @@ jobs:
       - name: Verify version output
         shell: bash
         run: |
-          echo "Output version: ${{ steps.setup-bats.outputs.version }}"
-          test "${{ steps.setup-bats.outputs.version }}" = "1.11.0"
+          echo "Output version: ${STEPS_SETUP_BATS_OUTPUTS_VERSION}"
+          test "${STEPS_SETUP_BATS_OUTPUTS_VERSION}" = "1.11.0"
+        env:
+          STEPS_SETUP_BATS_OUTPUTS_VERSION: ${{ steps.setup-bats.outputs.version }}
 
       - name: Verify bats is on PATH
         shell: bash
