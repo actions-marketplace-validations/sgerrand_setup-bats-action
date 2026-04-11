@@ -14,7 +14,7 @@ updates:
     groups:
       actions:
         patterns:
-          - "*"
+          - '*'
   - package-ecosystem: bun
     directory: /
     schedule:
@@ -27,4 +27,4 @@ updates:
     groups:
       node:
         patterns:
-          - "*"
+          - '*'
