@@ -1,4 +1,13 @@
-import {mock, spyOn, beforeEach, afterEach, describe, it, expect, type Mock} from 'bun:test'
+import {
+  mock,
+  spyOn,
+  beforeEach,
+  afterEach,
+  describe,
+  it,
+  expect,
+  type Mock
+} from 'bun:test'
 import * as core from '@actions/core'
 import * as tc from '@actions/tool-cache'
 import {HttpClient} from '@actions/http-client'
