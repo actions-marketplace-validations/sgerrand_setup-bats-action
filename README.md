@@ -12,15 +12,15 @@ A GitHub Action to install [BATS (Bash Automated Testing System)](https://github
 
 ### Inputs
 
-| Input | Description | Default |
-|-------|-------------|---------|
-| `version` | BATS version to install. Accepts with or without a leading `v` prefix (e.g. `1.11.0` or `v1.11.0`). Use `latest` to auto-resolve the most recent release. | `latest` |
-| `token` | GitHub token for API calls when resolving `latest`. | `${{ github.token }}` |
+| Input     | Description                                                                                                                                               | Default               |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `version` | BATS version to install. Accepts with or without a leading `v` prefix (e.g. `1.11.0` or `v1.11.0`). Use `latest` to auto-resolve the most recent release. | `latest`              |
+| `token`   | GitHub token for API calls when resolving `latest`.                                                                                                       | `${{ github.token }}` |
 
 ### Outputs
 
-| Output | Description |
-|--------|-------------|
+| Output    | Description                                                |
+| --------- | ---------------------------------------------------------- |
 | `version` | Installed BATS version without leading `v` (e.g. `1.13.0`) |
 
 ## Examples

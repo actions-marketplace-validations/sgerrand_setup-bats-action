@@ -15,6 +15,7 @@ bun run all           # format + lint:fix + build + test
 ```
 
 Run a single test file:
+
 ```bash
 bun run test -- --testPathPattern=installer
 ```
@@ -30,6 +31,7 @@ This is a TypeScript GitHub Action that installs BATS (Bash Automated Testing Sy
 **Entry point:** `action.yml` points to `dist/index.js`, which executes `src/main.ts`. `src/main.ts` exports `run()` (for testability) and calls it under a `require.main === module` guard.
 
 **Source files:**
+
 - `src/main.ts` — reads `version` and `token` inputs, calls `installBats`, sets `version` output
 - `src/installer.ts` — all domain logic: `normalizeVersion`, `resolveLatestVersion` (GitHub API), `getDownloadUrl`, `downloadBats` (tool-cache), `installBats`
 

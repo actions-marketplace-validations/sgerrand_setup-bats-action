@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "ncc build src/main.ts -o dist --license licenses.txt",
-    "format": "prettier --config ./.prettierrc.js --write \"**/*.{ts,yml,yaml}\"",
-    "format-check": "prettier --config ./.prettierrc.js --check \"**/*.{ts,yml,yaml}\"",
+    "format": "prettier --config ./.prettierrc.js --write \"**/*.{md,ts,yml,yaml}\"",
+    "format-check": "prettier --config ./.prettierrc.js --check \"**/*.{md,ts,yml,yaml}\"",
     "lint": "eslint --config ./.eslintrc.js \"**/*.ts\"",
     "lint:fix": "eslint --config ./.eslintrc.js \"**/*.ts\" --fix",
     "test": "jest --runInBand --coverage",
