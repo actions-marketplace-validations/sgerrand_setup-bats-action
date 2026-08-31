@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.3](https://github.com/sgerrand/setup-bats-action/compare/v1.0.2...v1.0.3) (2026-08-07)
+
+
+### Bug Fixes
+
+* validate version input against semver pattern ([#28](https://github.com/sgerrand/setup-bats-action/issues/28)) ([c144d68](https://github.com/sgerrand/setup-bats-action/commit/c144d68d9984dccd22f74cef49b6c90501194fbd))
+
+## [1.0.2](https://github.com/sgerrand/setup-bats-action/compare/v1.0.1...v1.0.2) (2026-07-19)
+
+
+### Bug Fixes
+
+* **lint:** unwrap eslint-plugin-n v18 default export ([498540f](https://github.com/sgerrand/setup-bats-action/commit/498540f79271a26fd17aee4e7e4a8df13bb79e66))
+
 ## [1.0.1](https://github.com/sgerrand/setup-bats-action/compare/v1.0.0...v1.0.1) (2026-04-11)
 
 
